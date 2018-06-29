@@ -253,6 +253,8 @@ if !isdirectory(&undodir)
     call mkdir(&undodir, "p")
 endif
 
+autocmd FileType latex,tex,md,markdown,text setlocal spell
+
 " ============================================================================
 " Plugins settings and mappings
 " Edit them as you wish.

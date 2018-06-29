@@ -2,8 +2,7 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-  export ZSH=/home/guass/.oh-my-zsh
-export PATH="/home/guass/miniconda3/bin":$PATH
+export ZSH=/home/guass/.oh-my-zsh
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
@@ -89,6 +88,14 @@ source $ZSH/oh-my-zsh.sh
 # ssh
 # export SSH_KEY_PATH="~/.ssh/rsa_id"
 
+# Path Variables
+export PATH="/home/guass/miniconda3/bin":$PATH
+export PATH=/usr/local/cuda/bin:$PATH
+export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH
+export PATH=/usr/local/cuda/bin:/home/guass/miniconda3/bin:/home/guass/bin:/home/guass/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/usr/lib/jvm/java-8-oracle/bin:/usr/lib/jvm/java-8-oracle/db/bin:/usr/lib/jvm/java-8-oracle/jre/bin:/usr/bin
+
+export WTF_JIRA_API_KEY=8Iv5SK62jXhAvD0fUYpKF993
+export WTF_OWM_API_KEY=78ff0310ff55b136a89d36fd10fa44ee
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
@@ -99,3 +106,7 @@ alias zshconfig="mate ~/.zshrc"
 alias ohmyzsh="mate ~/.oh-my-zsh"
 alias pycharm="bash $HOME/pycharm-2017.3.3/bin/pycharm.sh"
 source ~/.oh-my-zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 
+
+# tabtab source for electron-forge package
+# uninstall by removing these lines or running `tabtab uninstall electron-forge`
+[[ -f /home/guass/Documents/github/test-app/node_modules/tabtab/.completions/electron-forge.zsh ]] && . /home/guass/Documents/github/test-app/node_modules/tabtab/.completions/electron-forge.zsh
