@@ -168,7 +168,13 @@ set hlsearch
 syntax on
 
 " show line numbers
-set nu
+set number relativenumber
+
+augroup numbertoggle
+    autocmd!
+    autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
+    autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
+augroup END
 
 " tab navigation mappings
 map tn :tabn<CR>
