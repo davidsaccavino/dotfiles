@@ -22,8 +22,10 @@ call plug#begin('~/.vim/plugged')
 
   " Async Autocompletion
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+
   " Adds Complete From Other Opened Files
   Plug 'Shougo/context_filetype.vim'
+
   " Python autocompletion
   Plug 'zchee/deoplete-jedi', { 'do': ':UpdateRemotePlugins' }
 
@@ -51,6 +53,10 @@ call plug#begin('~/.vim/plugged')
   " Grep for Source Code
   Plug 'mileszs/ack.vim'
 
+  Plug 'derekwyatt/vim-scala'
+
+  " HOCON Support
+  Plug 'geverding/vim-hocon', { 'for': 'hocon' } " Play config format (HOCON) syntax highlighting
 
 call plug#end()
 
@@ -67,6 +73,8 @@ set incsearch
 set hlsearch
 set scrolloff=3
 set background=dark
+
+set clipboard+=unnamed " Makes yank and paste global
 "colorscheme dracula
 "colorscheme materialtheme
 colorscheme vim-material
@@ -87,8 +95,8 @@ endif
 if has("gui_running")
   set guicursor=n-v-c-sm:block,i-ci-ve:block,r-cr-o:blocks
 endif
+
 set number
-set relativenumber
 set hidden
 set mouse=a
 set noshowmode
@@ -209,3 +217,34 @@ let g:airline#extensions#whitespace#enabled = 0
 let g:airline#extensions#ale#enabled = 1
 let airline#extensions#ale#error_symbol = 'E:'
 let airline#extensions#ale#warning_symbol = 'W:'
+
+"" In Neovim, you can set up fzf window using a Vim command
+let g:fzf_layout = { 'window': 'enew' }
+let g:fzf_layout = { 'window': '-tabnew' }
+let g:fzf_layout = { 'window': '10new' }
+
+" Customize fzf colors to match your color scheme
+let g:fzf_colors =
+\ { 'fg':      ['fg', 'Normal'],
+  \ 'bg':      ['bg', 'Normal'],
+  \ 'hl':      ['fg', 'Comment'],
+  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+  \ 'hl+':     ['fg', 'Statement'],
+  \ 'info':    ['fg', 'PreProc'],
+  \ 'border':  ['fg', 'Ignore'],
+  \ 'prompt':  ['fg', 'Conditional'],
+  \ 'pointer': ['fg', 'Exception'],
+  \ 'marker':  ['fg', 'Keyword'],
+  \ 'spinner': ['fg', 'Label'],
+  \ 'header':  ['fg', 'Comment'] }
+"
+let $BAT_THEME = 'DarkNeon'
+
+command! -bang -nargs=? -complete=dir Files call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
+
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep('rg --column --no-heading --line-number --color=always '.shellescape(<q-args>),
+  \ 1,
+  \ fzf#vim#with_preview(),
+  \ <bang>0)

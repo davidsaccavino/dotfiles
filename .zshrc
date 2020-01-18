@@ -2,13 +2,13 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/home/williamsg/.oh-my-zsh"
+export ZSH="/Users/gwilliams/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="agnoster"
+ZSH_THEME="robbyrussell"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -31,6 +31,9 @@ ZSH_THEME="agnoster"
 
 # Uncomment the following line to change how often to auto-update (in days).
 # export UPDATE_ZSH_DAYS=13
+
+# Uncomment the following line if pasting URLs and other text is messed up.
+# DISABLE_MAGIC_FUNCTIONS=true
 
 # Uncomment the following line to disable colors in ls.
 # DISABLE_LS_COLORS="true"
@@ -83,11 +86,6 @@ source $ZSH/oh-my-zsh.sh
 #   export EDITOR='mvim'
 # fi
 
-# Alias definitions
-if [ -f ~/.aliases ]; then
-    . ~/.aliases
-fi
-
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
@@ -95,14 +93,45 @@ fi
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
-plugins=(
-  git
-  zsh-autosuggestions
-)
 #
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-export PATH=~/miniconda/bin:$PATH
+source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+# export PATH="/Users/gwilliams/miniconda3/bin:$PATH"  # commented out by conda initialize
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/Users/gwilliams/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/Users/gwilliams/miniconda3/etc/profile.d/conda.sh" ]; then
+        . "/Users/gwilliams/miniconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/Users/gwilliams/miniconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+
+export PATH="/Users/gwilliams/miniconda3/bin:$PATH"
+source ~/.iterm2_shell_integration.zsh
+source <(kubectl completion zsh)
+
+# mix fzf with ripgrep
+fif() {
+  if [ ! "$#" -gt 0 ]; then echo "Need a string to search for!"; return 1; fi
+  rg --files-with-matches --no-messages "$1" | fzf --preview "highlight -O ansi -l {} 2> /dev/null | rg --colors 'match:bg:yellow' --ignore-case --pretty --context 10 '$1' || rg --ignore-case --pretty --context 10 '$1' {}"
+}
+
+# include aliases file
+source $HOME/.env
+source $HOME/.aliases
+source $HOME/.cargo/env
+export PATH="/usr/local/opt/berkeley-db@4/bin:$PATH"
+export PATH="$PATH:/usr/local/opt/rabbitmq/sbin"
+
+source /Users/gwilliams/Library/Preferences/org.dystroy.broot/launcher/bash/br
